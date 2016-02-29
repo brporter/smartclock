@@ -6,12 +6,18 @@ import {IWeatherReport} from './weather.service';
 @Component({
     selector: 'currentWeather',
     template: `
-        <h2>{{report.temperature}}</h2>
-        <h3>{{report.shortDescription}}</h3>
-        <h4>{{report.longDescription}}</h4>
-        <h4>{{report.pressure}}</h4>
-        <h4>{{report.windSpeed}}</h4>
-        <h4>{{report.windDirection}}</h4>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-4"><h1>{{report.temperature}} &deg;</h1></div>
+                <div class="col-xs-8">
+                    <div class="container-fluid">
+                        <div class="row"><div class="col-xs-12">{{report.shortDescription}}</div></div>
+                        <div class="row"><div class="col-xs-12">{{report.pressure}}</div></div>
+                        <div class="row"><div class="col-xs-12">{{report.windSpeed}} {{report.windDirection}}</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     `,
 })
 export class CurrentWeatherComponent {

@@ -5,11 +5,16 @@ import {ForecastPanelComponent} from './weather.component'
 
 @Component({
     selector: 'smart-clock',
-    template: `<h1>Welcome to SmartClock!</h1>
-    <clock></clock>
-    <currentWeather postalCode="63301"></currentWeather>
-    <h1>Forecast:</h1>
-    <forecast postalCode="63301"></forecast>
+    template: `
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8"><clock></clock></div>
+            <div class="col-sm-4"><currentWeather postalCode="63301"></currentWeather></div>
+        </div>
+        <div class="row">
+            <forecast postalCode="63301"></forecast>
+        </div>
+    </div>
     `,
     directives: [ClockComponent, CurrentWeatherComponent, ForecastPanelComponent]
 })
