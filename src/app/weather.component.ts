@@ -8,13 +8,11 @@ import {IWeatherReport} from './weather.service';
     template: `
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xs-4"><h1>{{report.temperature}} &deg;</h1></div>
-                <div class="col-xs-8">
-                    <div class="container-fluid">
-                        <div class="row"><div class="col-xs-12">{{report.shortDescription}}</div></div>
-                        <div class="row"><div class="col-xs-12">{{report.pressure}}</div></div>
-                        <div class="row"><div class="col-xs-12">{{report.windSpeed}} {{report.windDirection}}</div></div>
-                    </div>
+                <div class="col-xs-5"><h1>{{report.temperature}}&nbsp;&deg;</h1></div>
+                <div class="col-xs-7">
+                    <p>{{report.shortDescription}}</p>
+                    <p>{{report.pressure}}</p>
+                    <p>Wind {{report.windDirection}} @ {{report.windSpeed}}MPH</p>
                 </div>
             </div>
         </div>
@@ -30,7 +28,7 @@ export class CurrentWeatherComponent {
         "pressure": 0,
         "humidity": 0,
         "windSpeed": 0,
-        "windDirection": 0,
+        "windDirection": "",
         "time": new Date()
     };
 
@@ -51,14 +49,15 @@ export class CurrentWeatherComponent {
 @Component({
     selector: 'forecast',
     template: `
-        <div *ngFor="#forecastItem of forecast">
-            <h2>{{forecastItem.temperature}} @ {{forecastItem.time.toLocaleTimeString()}}</h2>
-            <h3>{{forecastItem.humidity}} %</h3>
-            <h3>{{forecastItem.shortDescription}}</h3>
-            <h4>{{forecastItem.longDescription}}</h4>
-            <h4>{{forecastItem.pressure}}</h4>
-            <h4>{{forecastItem.windSpeed}}</h4>
-            <h4>{{forecastItem.windDirection}}</h4>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-3" *ngFor="#forecastItem of forecast">
+                    <h2>{{forecastItem.temperature}}&nbsp;&deg;</h2>
+                    <p>{{forecastItem.shortDescription}}</p>
+                    <p>Wind {{forecastItem.windDirection}} @ {{forecastItem.windSpeed}} MPH</p>
+                    <p>{{forecastItem.time.toAmPmTimeString()}}</p>
+                </div>
+            </div>
         </div>
     `,
 })
@@ -76,7 +75,36 @@ export class ForecastPanelComponent {
     }
     
     private refreshData() {
-        this._weatherService.getForecast(this.postalCode).then( (results) => this.forecast = results );
+        this._weatherService.getForecast(this.postalCode).then( (results) => this.forecast = results.slice(0, 7) );
+        // this.forecast = [
+        //     {
+        //         'temperature': 67.0,
+        //         'shortDescription': "Cloudy",
+        //         "longDescription": "",
+        //         'windSpeed': 4.56,
+        //         'windDirection': this._weatherService.getCompassDirection(60),
+        //         'time':new Date()
+        //     },{
+        //         'temperature': 67.0,
+        //         'shortDescription': "Cloudy",
+        //         'windSpeed': 4.56,
+        //         'windDirection': this._weatherService.getCompassDirection(45),
+        //         'time':new Date()
+        //     },{
+        //         'temperature': 67.0,
+        //         'shortDescription': "Cloudy",
+        //         'windSpeed': 4.56,
+        //         'windDirection': this._weatherService.getCompassDirection(90),
+        //         'time':new Date()
+        //     },{
+        //         'temperature': 67.0,
+        //         'shortDescription': "Cloudy",
+        //         'windSpeed': 4.56,
+        //         'windDirection': this._weatherService.getCompassDirection(268),
+        //         'time':new Date()
+        //     },
+        // ];
+
         setTimeout(() => { this.refreshData() }, 300000);
     }
 }

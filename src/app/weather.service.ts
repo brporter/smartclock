@@ -2,6 +2,49 @@ export class WeatherService {
     private _apiKey : string = "a6be23893b7fd3e6b53abcda72e8832f";
     private _units : string = "imperial";
     
+    public getCompassDirection(degree: number) : string
+    {
+        if (degree > 360 || degree < 0)
+        {
+            throw "degree must be less than 360 and more than 0";
+        }
+        
+        if (degree == 0 || degree == 360)
+        {
+            return "N";
+        }
+        else if (degree > 270 && degree < 0)
+        {
+            return "NW";
+        } 
+        else if (degree > 0 && degree < 90)
+        {
+            return "NE";
+        }
+        else if (degree == 90) 
+        {
+            return "E";
+        } 
+        else if (degree == 180) 
+        {
+            return "S";
+        } 
+        else if (degree > 90 && degree < 180)
+        {
+            return "SE";
+        }
+        else if (degree > 180 && degree < 270)
+        {
+            return "SW";
+        }
+        else if (degree == 270) 
+        {
+            return "W";
+        }
+        
+        return "Poop";
+    }
+    
     public getWeather(postalCode: string) : Promise<IWeatherReport>
     {
         return new Promise( (resolve, reject) => {
@@ -20,7 +63,7 @@ export class WeatherService {
                             "pressure": weatherData.main.pressure,
                             "humidity": weatherData.main.humidity,
                             "windSpeed": weatherData.wind.speed,
-                            "windDirection": weatherData.wind.deg,
+                            "windDirection": this.getCompassDirection(weatherData.wind.deg),
                             "time": new Date()
                         });
                 } else {
@@ -55,7 +98,7 @@ export class WeatherService {
                             "pressure": forecast.main.pressure,
                             "humidity": forecast.main.humidity,
                             "windSpeed": forecast.wind.speed,
-                            "windDirection": forecast.wind.deg,
+                            "windDirection": this.getCompassDirection(forecast.wind.deg),
                             "time": new Date(parseInt(forecast.dt) * 1000)
                         });
                     });
@@ -81,7 +124,7 @@ export interface IWeatherReport
     longDescription : string;
     pressure : number;
     windSpeed : number;
-    windDirection : number;
+    windDirection : string;
     humidity: number;
     time: Date;
 }

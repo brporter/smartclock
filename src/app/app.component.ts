@@ -8,8 +8,8 @@ import {ForecastPanelComponent} from './weather.component'
     template: `
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-8"><clock></clock></div>
-            <div class="col-sm-4"><currentWeather postalCode="63301"></currentWeather></div>
+            <div class="col-sm-7 vcenter"><clock></clock></div><!--
+            --><div class="col-sm-5 vcenter"><currentWeather postalCode="63301"></currentWeather></div>
         </div>
         <div class="row">
             <forecast postalCode="63301"></forecast>

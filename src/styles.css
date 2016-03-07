@@ -1,0 +1,16 @@
+h1#currentTime {
+    font-size: 60pt;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none; 
+}
+
+body {
+    background-color: black;
+    color: white;
+    font-family: 'Noto Sans', sans-serif;
+}
+
