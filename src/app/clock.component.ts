@@ -1,4 +1,5 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
+import {RichDate} from './RichDate';
 
 @Component({
     selector: 'clock',
@@ -13,7 +14,7 @@ export class ClockComponent {
     
     private updateTime()
     {
-        this.currentTime = new Date().toAmPmTimeString();
+        this.currentTime = new RichDate(null).toAmPmTimeString();
         setTimeout( () => this.updateTime(), 1000);
     }
 }

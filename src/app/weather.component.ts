@@ -1,7 +1,8 @@
-import {Component} from 'angular2/core';
-import {Input} from 'angular2/core';
+import {Component} from '@angular/core';
+import {Input} from '@angular/core';
 import {WeatherService} from './weather.service';
 import {IWeatherReport} from './weather.service';
+import {RichDate} from './RichDate';
 
 @Component({
     selector: 'currentWeather',
@@ -29,7 +30,7 @@ export class CurrentWeatherComponent {
         "humidity": 0,
         "windSpeed": 0,
         "windDirection": "",
-        "time": new Date()
+        "time": new RichDate(null)
     };
 
     private _weatherService: WeatherService;
@@ -75,35 +76,7 @@ export class ForecastPanelComponent {
     }
     
     private refreshData() {
-        this._weatherService.getForecast(this.postalCode).then( (results) => this.forecast = results.slice(0, 7) );
-        // this.forecast = [
-        //     {
-        //         'temperature': 67.0,
-        //         'shortDescription': "Cloudy",
-        //         "longDescription": "",
-        //         'windSpeed': 4.56,
-        //         'windDirection': this._weatherService.getCompassDirection(60),
-        //         'time':new Date()
-        //     },{
-        //         'temperature': 67.0,
-        //         'shortDescription': "Cloudy",
-        //         'windSpeed': 4.56,
-        //         'windDirection': this._weatherService.getCompassDirection(45),
-        //         'time':new Date()
-        //     },{
-        //         'temperature': 67.0,
-        //         'shortDescription': "Cloudy",
-        //         'windSpeed': 4.56,
-        //         'windDirection': this._weatherService.getCompassDirection(90),
-        //         'time':new Date()
-        //     },{
-        //         'temperature': 67.0,
-        //         'shortDescription': "Cloudy",
-        //         'windSpeed': 4.56,
-        //         'windDirection': this._weatherService.getCompassDirection(268),
-        //         'time':new Date()
-        //     },
-        // ];
+        this._weatherService.getForecast(this.postalCode).then( (results) => this.forecast = results.slice(0, 8) );
 
         setTimeout(() => { this.refreshData() }, 300000);
     }

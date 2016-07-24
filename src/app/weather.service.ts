@@ -1,3 +1,5 @@
+import {RichDate} from './RichDate';
+
 export class WeatherService {
     private _apiKey : string = "a6be23893b7fd3e6b53abcda72e8832f";
     private _units : string = "imperial";
@@ -13,7 +15,7 @@ export class WeatherService {
         {
             return "N";
         }
-        else if (degree > 270 && degree < 0)
+        else if (degree > 270 && degree < 360)
         {
             return "NW";
         } 
@@ -42,7 +44,7 @@ export class WeatherService {
             return "W";
         }
         
-        return "Poop";
+        throw "Unable to determine degree."
     }
     
     public getWeather(postalCode: string) : Promise<IWeatherReport>
@@ -64,7 +66,7 @@ export class WeatherService {
                             "humidity": weatherData.main.humidity,
                             "windSpeed": weatherData.wind.speed,
                             "windDirection": this.getCompassDirection(weatherData.wind.deg),
-                            "time": new Date()
+                            "time": new RichDate(null)
                         });
                 } else {
                     reject( {
@@ -99,7 +101,7 @@ export class WeatherService {
                             "humidity": forecast.main.humidity,
                             "windSpeed": forecast.wind.speed,
                             "windDirection": this.getCompassDirection(forecast.wind.deg),
-                            "time": new Date(parseInt(forecast.dt) * 1000)
+                            "time": new RichDate(new Date(parseInt(forecast.dt) * 1000))
                         });
                     });
                     
@@ -126,5 +128,5 @@ export interface IWeatherReport
     windSpeed : number;
     windDirection : string;
     humidity: number;
-    time: Date;
+    time: RichDate;
 }

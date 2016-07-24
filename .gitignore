@@ -3,4 +3,5 @@ bower_components
 typings
 src/app/*.js
 src/app/*.js.map
+dist
 npm-debug.log

@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {ClockComponent} from './clock.component'
 import {CurrentWeatherComponent} from './weather.component'
 import {ForecastPanelComponent} from './weather.component'
@@ -8,8 +8,7 @@ import {ForecastPanelComponent} from './weather.component'
     template: `
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-7 vcenter"><clock></clock></div><!--
-            --><div class="col-sm-5 vcenter"><currentWeather postalCode="63301"></currentWeather></div>
+            <div class="col-sm-7 vcenter"><clock></clock></div><div class="col-sm-5 vcenter"><currentWeather postalCode="63301"></currentWeather></div>
         </div>
         <div class="row">
             <forecast postalCode="63301"></forecast>
@@ -18,5 +17,6 @@ import {ForecastPanelComponent} from './weather.component'
     `,
     directives: [ClockComponent, CurrentWeatherComponent, ForecastPanelComponent]
 })
+
 export class AppComponent {
 }

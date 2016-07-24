@@ -2,16 +2,12 @@
     <head>
         <title>SmartClock</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <!-- 1. Load libraries -->
-        <!-- IE required polyfills, in this exact order -->
-        <script src="node_modules/es6-shim/es6-shim.min.js"></script>
-        <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
 
-        <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+        <!-- Polyfill(s) for older browsers -->
+        <script src="node_modules/core-js/client/shim.min.js"></script>
+        <script src="node_modules/zone.js/dist/zone.js"></script>
+        <script src="node_modules/reflect-metadata/Reflect.js"></script>
         <script src="node_modules/systemjs/dist/system.src.js"></script>
-        <script src="node_modules/rxjs/bundles/Rx.js"></script>
-        <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
         <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
         
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
@@ -20,17 +16,9 @@
         <link href="styles.css" rel="stylesheet"/>
         
         <!-- 2. Configure SystemJS -->
+        <script src="systemjs.config.js"></script>
         <script>
-        System.config({
-            packages: {        
-            app: {
-                format: 'register',
-                defaultExtension: 'js'
-            }
-            }
-        });
-        System.import('app/main')
-                .then(null, console.error.bind(console));
+            System.import('app').catch(function(err){ console.error(err); });
         </script>
     </head>
     
